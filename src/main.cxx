@@ -7,5 +7,7 @@ using namespace PassGen;
 
 int main(int argc, char** argv) {
     std::cout << getUpperAlpha() << std::endl;
+    char* num = getNumber();
+    std::cout << num[5] << std::endl;
     return 0;
 }
