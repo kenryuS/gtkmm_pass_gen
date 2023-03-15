@@ -8,6 +8,7 @@ namespace PassGen {
     char* getLowerAlpha();
     char* getUpperAlpha();
     char* getNumber();
+    char* getSpecialChars();
 }
 
 #endif // PASSGEN
