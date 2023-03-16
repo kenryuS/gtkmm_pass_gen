@@ -62,3 +62,16 @@ char* PassGen::getSpecialChars() {
     output[42] = '\0';
     return output;
 }
+
+// passGen - Password Generator
+// charList (char*) : list of char to be used in password generation
+// len (int) : length of password
+// return (char*) : the generated password
+char* PassGen::passGen(char* charList, int len) {
+    char* output = (char*)malloc(len+1); // length of password + 1 terminating char
+    if (output == NULL) {return 0;} // return -1 on the failiure of memory allocation
+    for (int i = 0; i < len; i++) {
+        output[i] = charList[i];
+    }
+    return output;
+}

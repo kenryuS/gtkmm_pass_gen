@@ -6,10 +6,14 @@
 #include <passgen.hxx>
 using namespace PassGen;
 
-#define print(x) std::cout << x << std::endl
 
 void printhelp() {
-    print("test");
+    printf("APCSPCreateTaks - Random Password Generator\n\n");
+    printf("\t[Arguments]:\n\n");
+    printf("\t-A : include upper case alphabets in password\n\n");
+    printf("\t-a : include lower case alphabets in password\n\n");
+    printf("\t-n : include numbers in password\n\n");
+    printf("\t-s : include special characters in password\n\n");
 }
 
 int main(int argc, char** argv) {
@@ -18,10 +22,10 @@ int main(int argc, char** argv) {
     bool lowAlphaFlag = false;
     bool numFlag = false;
     bool specialCharFlag = false;
-    int length;
+    int length = -1;
     int arg;
 
-    while ((arg = getopt (argc, argv, "Aansh:")) != -1) {
+    while ((arg = getopt (argc, argv, "Aanshl:")) != -1) {
         switch (arg) {
             case 'A':
                 upAlphaFlag = true;
@@ -35,22 +39,27 @@ int main(int argc, char** argv) {
             case 's':
                 specialCharFlag = true;
                 break;
+            case 'l':
+                length = std::atoi(optarg);
+                break;
             case 'h':
-                printf("Test");
+                printhelp();
                 break;
             case '?':
-                print("Other args");
-                break;
+                if (optopt == 'l') {
+                    printf("Error: no length specified");
+                }
+                return 1;
             default:
                 abort();
         }
     }
 
     std::cout << "A: " << upAlphaFlag << " a: " << lowAlphaFlag << " n: " << numFlag << " s: " << specialCharFlag << std::endl;
+    if (upAlphaFlag == true) {std::cout << getUpperAlpha() << std::endl;}
+    if (lowAlphaFlag == true) {std::cout << getLowerAlpha() << std::endl;}
+    if (numFlag == true) {std::cout << getNumber() << std::endl;}
 
-    std::cout << getUpperAlpha() << std::endl;
-    char* num = getNumber();
-    std::cout << num[5] << std::endl;
-    std::cout << getSpecialChars() << std::endl;
+
     return 0;
 }

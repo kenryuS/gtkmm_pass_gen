@@ -9,6 +9,7 @@ namespace PassGen {
     char* getUpperAlpha();
     char* getNumber();
     char* getSpecialChars();
+    char* passGen(char* charList, int len);
 }
 
 #endif // PASSGEN
