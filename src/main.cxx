@@ -60,6 +60,8 @@ int main(int argc, char** argv) {
     if (lowAlphaFlag == true) {std::cout << getLowerAlpha() << std::endl;}
     if (numFlag == true) {std::cout << getNumber() << std::endl;}
 
+    char* out = passGen(getUpperAlpha(), 12);
+    std::cout << out << std::endl;
 
     return 0;
 }
