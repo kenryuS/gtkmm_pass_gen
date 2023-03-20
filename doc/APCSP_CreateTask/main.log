@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2023.2.26)  17 MAR 2023 11:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2023.2.26)  20 MAR 2023 10:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -162,18 +162,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 54--57
 
 (../../include/utils.hxx) [4] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 3348 strings out of 478238
- 46342 string characters out of 5850456
- 951007 words of memory out of 5000000
- 21609 multiletter control sequences out of 15000+600000
+ 3360 strings out of 478238
+ 46472 string characters out of 5850456
+ 945007 words of memory out of 5000000
+ 21621 multiletter control sequences out of 15000+600000
  470499 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,6n,64p,226b,1841s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,6n,64p,210b,1841s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><
 /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on main.pdf (4 pages, 54384 bytes).
+Output written on main.pdf (4 pages, 55882 bytes).
 PDF statistics:
  37 PDF objects out of 1000 (max. 8388607)
  22 compressed objects within 1 object stream

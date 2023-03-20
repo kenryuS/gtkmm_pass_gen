@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include <string>
+#include <cstring>
 #include <passgen.hxx>
 using namespace PassGen;
 
@@ -24,6 +25,8 @@ int main(int argc, char** argv) {
     bool specialCharFlag = false;
     int length = -1;
     int arg;
+
+    std::string input;
 
     while ((arg = getopt (argc, argv, "Aanshl:")) != -1) {
         switch (arg) {
@@ -56,11 +59,14 @@ int main(int argc, char** argv) {
     }
 
     std::cout << "A: " << upAlphaFlag << " a: " << lowAlphaFlag << " n: " << numFlag << " s: " << specialCharFlag << std::endl;
-    if (upAlphaFlag == true) {std::cout << getUpperAlpha() << std::endl;}
-    if (lowAlphaFlag == true) {std::cout << getLowerAlpha() << std::endl;}
-    if (numFlag == true) {std::cout << getNumber() << std::endl;}
+    if (upAlphaFlag == true) {input += getUpperAlpha();}
+    if (lowAlphaFlag == true) {input += getLowerAlpha();}
+    if (numFlag == true) {input += getNumber();}
+    if (specialCharFlag == true) {input += getSpecialChars();}
 
-    char* out = passGen(getUpperAlpha(), 12);
+    char *cInput = new char[input.length() + 1];
+    strcpy(cInput, input.c_str());
+    char *out = passGen(cInput, length);
     std::cout << out << std::endl;
 
     return 0;

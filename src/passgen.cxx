@@ -77,7 +77,7 @@ char* PassGen::getSpecialChars() {
 // charList (char*) : list of char to be used in password generation
 // len (int) : length of password
 // return (char*) : the generated password
-char* PassGen::passGen(char* charList, const int len) {
+char* PassGen::passGen(char *charList, const int len) {
     std::srand(time(nullptr));
     unsigned int index;
     char* output = new char[len+1]; // length of password + 1 terminating char
