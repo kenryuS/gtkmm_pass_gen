@@ -1,33 +1,10 @@
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string>
-#include <cstring>
-#include <passgen.hxx>
-using namespace PassGen;
+#include <utils.hxx>
+#include <ui.hxx>
 
-
-void printhelp() {
-    printf("APCSPCreateTask - Random Password Generator\n\n");
-    printf("[Usage]: APCSPCreateTask [-A -a -n -s] -l <length>\n\n");
-    printf("[Arguments]:\n\n");
-    printf("\t-A : include upper case alphabets in password\n\n");
-    printf("\t-a : include lower case alphabets in password\n\n");
-    printf("\t-n : include numbers in password\n\n");
-    printf("\t-s : include special characters in password\n\n");
-    printf("\t-l <number> : set the length of the password\n\n");
-    printf("\t-h : print this help\n\n");
-}
-
-bool checkFlags(bool up, bool low, bool num, bool spec) {
-    int count = 0;
-    if (up == true) {count++;}
-    if (low == true) {count++;}
-    if (num == true) {count++;}
-    if (spec == true) {count++;}
-    return count > 0 ? true : false;
-}
 
 int main(int argc, char** argv) {
     // flags for program arguments
@@ -37,8 +14,7 @@ int main(int argc, char** argv) {
     bool specialCharFlag = false;
     int length = -1;
     int arg;
-
-    std::string input;
+    int state = 0;
 
     while ((arg = getopt (argc, argv, "Aanshl:")) != -1) {
         switch (arg) {
@@ -75,33 +51,6 @@ int main(int argc, char** argv) {
         }
     }
 
-    if (length < 0 && checkFlags(upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag) == false) {
-        printhelp();
-        printf("\nError: No option specified\n");
-        return 1;
-    } 
-
-    if (length < 0) {
-        printhelp();
-        printf("\nError: Length not specified\n");
-        return 1;
-    }
-
-    if (checkFlags(upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag) == false) {
-        printhelp();
-        printf("\nError: No character flag(s) specified\n");
-        return 1;
-    }
-
-    if (upAlphaFlag == true) {input += getUpperAlpha();}
-    if (lowAlphaFlag == true) {input += getLowerAlpha();}
-    if (numFlag == true) {input += getNumber();}
-    if (specialCharFlag == true) {input += getSpecialChars();}
-
-    char *cInput = new char[input.length() + 1];
-    strcpy(cInput, input.c_str());
-    char *out = passGen(cInput, length);
-    std::cout << out << std::endl;
-
-    return 0;
+    state = runcui(length, upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag);
+    return state;
 }

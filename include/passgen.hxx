@@ -5,8 +5,8 @@
 #include <stdio.h>
 
 namespace PassGen {
-    char* getLowerAlpha();
     char* getUpperAlpha();
+    char* getLowerAlpha();
     char* getNumber();
     char* getSpecialChars();
     char* passGen(char* charList, int len);
