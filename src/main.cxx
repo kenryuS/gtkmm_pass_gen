@@ -39,8 +39,6 @@ int main(int argc, char** argv) {
             case '?':
                 if (optopt == 'l') {
                     printf("Error: No length specified\n");
-                } else if (isprint(optopt)){
-                    printf("Error: Unknown option: -%c\n", optopt);
                 } else {
                     printf("Error: Unknown value: -%c\n", optopt);
                 }
@@ -51,6 +49,10 @@ int main(int argc, char** argv) {
         }
     }
 
-    state = runcui(length, upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag);
+    if (length < 0 && checkFlags(upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag) == false) {
+        state = rungui(argc, argv);
+    } else {
+        state = runcui(length, upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag);
+    }
     return state;
 }

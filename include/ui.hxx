@@ -6,17 +6,12 @@
 #include <cstring>
 #include <utils.hxx>
 #include <passgen.hxx>
+#include <gtkui.hxx>
 using namespace PassGen;
 
 int runcui(int len, bool up, bool low, bool num, bool special) {
     
     std::string input;
-
-    if (len < 0 && checkFlags(up, low, num, special) == false) {
-        printhelp();
-        printf("\nError: No option specified\n");
-        return 1;
-    } 
 
     if (len < 0) {
         printhelp();
@@ -40,6 +35,11 @@ int runcui(int len, bool up, bool low, bool num, bool special) {
     char *out = passGen(cInput, len);
     std::cout << out << std::endl;
     return 0;
+}
+
+int rungui(int argc, char** argv) {
+    auto app = Gtk::Application::create("io.github.kenryus");
+    return app->make_window_and_run<PassGenUI>(argc, argv);
 }
 
 #endif // UI
