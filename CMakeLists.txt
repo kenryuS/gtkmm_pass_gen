@@ -11,7 +11,7 @@ pkg_check_modules(GTKMM gtkmm-4.0)
 include_directories(${GTKMM_INCLUDE_DIRS})
 link_directories(${GTKMM_LIBRARY_DIRS})
 
-add_executable(APCSPCreateTask ${SOURCE_DIR}/main.cxx ${SOURCE_DIR}/passgen.cxx ${SOURCE_DIR}/gtkui.cpp)
+add_executable(APCSPCreateTask ${SOURCE_DIR}/main.cxx ${SOURCE_DIR}/passgen.cxx ${SOURCE_DIR}/gtkui.cxx)
 target_link_libraries(APCSPCreateTask ${GTKMM_LIBRARIES})
 target_include_directories(APCSPCreateTask PUBLIC
     include
