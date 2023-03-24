@@ -38,7 +38,7 @@ int runcui(int len, bool up, bool low, bool num, bool special) {
 }
 
 int rungui(int argc, char** argv) {
-    auto app = Gtk::Application::create("io.github.kenryus");
+    auto app = Gtk::Application::create("io.apcsp.passgen");
     return app->make_window_and_run<PassGenUI>(argc, argv);
 }
 
