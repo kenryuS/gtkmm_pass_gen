@@ -49,26 +49,15 @@ char* PassGen::getNumber() {
 // void : takes nothing
 // return (char*) : the string with all special characters in standard ASCII
 char* PassGen::getSpecialChars() {
-    char* output = new char[42]; // 42 symbols
+    char* output = new char[14+7+6+4]; // 31 symbols
     if (output == NULL) {return 0;} // check if memory allocation is failed
-    int offset = 33; // 33rd letter in ASCII (!)
-    int listOffset = 0;
-    int i;
-    // ASCII range of 33 - 64 (32 symbols)
-    for (i = 0; i < 32; i++) {
-        output[i] = offset + i;
-    }
-    listOffset = 32;
-    offset = 91;
-    // ASCII range of 91 - 96 (6 symbols)
-    for (i = 0; i < 6; i++) {
-        output[i + listOffset] = offset + i;
-    }
-    listOffset = 38;
-    offset = 123;
-    // ASCII range of 123 - 126 (4 symbols)
-    for (i = 0; i < 4; i++) {
-        output[i + listOffset] = offset + i;
+    int ind = 0;
+    for (int i = 33; i < 127; i++) {
+        if ((i >= 48 && i <= 57) || (i >= 65 && i <= 90) || (i >= 97 && i <= 122)) {
+            continue;
+        }
+        output[ind] = i;
+        ind++;
     }
     return output;
 }
@@ -80,14 +69,38 @@ char* PassGen::getSpecialChars() {
 char* PassGen::passGen(char *charList, const int len) {
     std::srand(time(nullptr));
     unsigned int index;
+    const char termChar = '\0';
+    const char backSlash = '\\';
     char* output = new char[len+1]; // length of password + 1 terminating char
     if (output == NULL) {return 0;} // return 0 on the failiure of memory allocation
+    while (strSize(output) != len) {
     for (int i = 0; i <= len; i++) {
-        if (i == len) {output[i] = charList[strSize(charList)];}
+        if (i == len) {output[i] = termChar;}
         else {
         index = std::rand()%(strSize(charList));
         output[i] = charList[index];
+        char currentLetter = output[i];
+        char previousLetter = output[i-1];
+        // checks escape sequences which causes issues
+        while (
+            (previousLetter == backSlash && currentLetter == 'n') ||
+            (previousLetter == backSlash && currentLetter == 'a') ||
+            (previousLetter == backSlash && currentLetter == 'b') ||
+            (previousLetter == backSlash && currentLetter == 'r') ||
+            (previousLetter == backSlash && currentLetter == 't') ||
+            (previousLetter == backSlash && currentLetter == 'v') ||
+            (previousLetter == backSlash && currentLetter == 'f') ||
+            (previousLetter == backSlash && currentLetter == 'u') ||
+            (previousLetter == backSlash && currentLetter == 'U') ||
+            (previousLetter == backSlash && currentLetter == 'x') ||
+            (previousLetter == backSlash && currentLetter == 'c')) {
+                printf("ESC warn: %c\n", currentLetter);
+                index = std::rand()%(strSize(charList));
+                output[i] = charList[index];
+                currentLetter = output[i];
+            }
         }
+    }
     }
     return output;
 }

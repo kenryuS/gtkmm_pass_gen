@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
     int arg;
     int state = 0;
 
-    while ((arg = getopt (argc, argv, "Aanshl:")) != -1) {
+    while ((arg = getopt (argc, argv, ":lAansh")) != -1) {
         switch (arg) {
             case 'A':
                 upAlphaFlag = true;
@@ -40,7 +40,8 @@ int main(int argc, char** argv) {
                 if (optopt == 'l') {
                     printf("Error: No length specified\n");
                 } else {
-                    printf("Error: Unknown value: -%c\n", optopt);
+                    printhelp();
+                    printf("Error: Unknown Option: %c", optopt);
                 }
                 return 1;
             default:

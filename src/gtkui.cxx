@@ -2,7 +2,7 @@
 #include <iostream>
 
 PassGenUI::PassGenUI():
-m_generate_button("Hello"),
+m_generate_button("Generate"),
 m_main_box(Gtk::Orientation::VERTICAL,10),
 m_char_checks(Gtk::Orientation::VERTICAL,10),
 m_output_box(Gtk::Orientation::VERTICAL, 10),
@@ -21,8 +21,8 @@ m_title("Password Generator") {
     m_num_input.set_adjustment(m_num_input_adj);
     m_main_box.append(m_title);
     m_main_box.append(m_char_checks);
-    m_main_box.append(m_generate_button);
     m_main_box.append(m_num_input);
+    m_main_box.append(m_generate_button);
     m_main_box.append(m_output_box);
 
     m_char_checks.append(m_upper_check);
@@ -32,8 +32,9 @@ m_title("Password Generator") {
 
     m_output_scroll.set_child(m_output);
     m_output_scroll.set_expand();
+    m_output.set_editable(false);
+    m_output.set_wrap_mode(Gtk::WrapMode::CHAR);
     m_output_box.append(m_output_scroll);
-    m_output_buffer->set_text("test");
     m_output.set_buffer(m_output_buffer);
 }
 
@@ -41,7 +42,6 @@ PassGenUI::~PassGenUI() {
 }
 
 void PassGenUI::on_generate_button_clicked() {
-    std::cout << "Hello" << std::endl;
     std::string input;
     if (m_upper_check.get_active() == true) {input += PassGen::getUpperAlpha();}
     if (m_lower_check.get_active() == true) {input += PassGen::getLowerAlpha();}
@@ -50,5 +50,7 @@ void PassGenUI::on_generate_button_clicked() {
     char* cInput = new char[input.length() + 1];
     strcpy(cInput, input.c_str());
     int len = m_num_input.get_value_as_int();
-    std::cout << PassGen::passGen(cInput, len) << std::endl;
+    Glib::ustring output = Glib::convert(PassGen::passGen(cInput, len), "UTF-8", "ISO-8859-1");
+    m_output_buffer->set_text(output);
+    m_output.set_buffer(m_output_buffer);
 }

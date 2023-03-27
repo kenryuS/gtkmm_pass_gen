@@ -18,7 +18,7 @@ class PassGenUI : public Gtk::Window
         Gtk::Label m_title;
         Gtk::Button m_generate_button;
         Gtk::SpinButton m_num_input;
-        Glib::RefPtr<Gtk::Adjustment> m_num_input_adj = Gtk::Adjustment::create(0, 0, 256);
+        Glib::RefPtr<Gtk::Adjustment> m_num_input_adj = Gtk::Adjustment::create(0, 0, 8192);
         Gtk::ScrolledWindow m_output_scroll;
         Gtk::TextView m_output;
         Glib::RefPtr<Gtk::TextBuffer> m_output_buffer = Gtk::TextBuffer::create();
