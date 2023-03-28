@@ -1,37 +1,57 @@
-#ifndef UTILS
-#define UTILS
+#ifndef UTILS_HXX
+#define UTILS_HXX
 
-#include <stdlib.h>
+#include <iostream>
 
-inline int strSize(char* a) {
+// strSize - return the size(length) of string (pure C char list)
+// str (char*) : string to be measured
+// return (int) : size(length) of string
+inline int strSize(char* str) {
     int out = 0;
-    int i = 0;
-    while (a[i] != 0) {
-        i++;
+    int index = 0;
+    while (str[index] != 0) {
+        index++;
         out++;
     }
     return out;
 }
 
+// printLine - print the passed in argument
+// in (Template<class T>) : takes any type of input
+// return (void) : returns nothing, console output
+template<class T>
+inline void printLine(T in) {
+    std::cout << in << std::endl;
+}
+
+// printhelp - prints the help for the console application
+// void : takes nothing
+// return (void) : returns nothing, console output
 inline void printhelp() {
-    printf("APCSPCreateTask - Random Password Generator\n\n");
-    printf("[Usage]: APCSPCreateTask [-A -a -n -s] -l <length>\n\n");
-    printf("[Arguments]:\n\n");
-    printf("\t-A : include upper case alphabets in password\n\n");
-    printf("\t-a : include lower case alphabets in password\n\n");
-    printf("\t-n : include numbers in password\n\n");
-    printf("\t-s : include special characters in password\n\n");
-    printf("\t-l <number> : set the length of the password\n\n");
-    printf("\t-h : print this help\n\n");
+    printLine("APCSPCreateTask - Random Password Generator\n");
+    printLine("[Usage]: APCSPCreateTask [-A -a -n -s] -l <length>\n");
+    printLine("[Arguments]:\n");
+    printLine("\t-A : include upper case alphabets in password\n");
+    printLine("\t-a : include lower case alphabets in password\n");
+    printLine("\t-n : include numbers in password\n");
+    printLine("\t-s : include special characters in password\n");
+    printLine("\t-l <number> : set the length of the password\n");
+    printLine("\t-h : print this help\n");
 }
 
-inline bool checkFlags(bool up, bool low, bool num, bool spec) {
+// checkFlags - checks if any flag is enabled
+// upper (bool) - flag for upper case letters
+// lower (bool) - flag for lower case letters
+// num (bool) - flag for numbers
+// special (bool) - flag for special characters
+// reutnr (bool) - returns true if one of any flag is enabled
+inline bool checkFlags(bool upper, bool lower, bool num, bool special) {
     int count = 0;
-    if (up == true) {count++;}
-    if (low == true) {count++;}
-    if (num == true) {count++;}
-    if (spec == true) {count++;}
-    return count > 0 ? true : false;
+    if (upper) {count++;}
+    if (lower) {count++;}
+    if (num) {count++;}
+    if (special) {count++;}
+    return count > 0;
 }
 
-#endif // UTILS
+#endif // UTILS_HXX

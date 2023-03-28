@@ -1,2 +1,4 @@
 build/*
 .vscode/*
+.cache/*
+.cpp-linter_cache/*

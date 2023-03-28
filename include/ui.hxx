@@ -1,5 +1,5 @@
-#ifndef UI
-#define UI
+#ifndef UI_HXX
+#define UI_HXX
 
 #include <iostream>
 #include <string>
@@ -15,31 +15,36 @@ int runcui(int len, bool up, bool low, bool num, bool special) {
 
     if (len < 0) {
         printhelp();
-        printf("\nError: Length not specified\n");
+        printLine("\nError: Length not specified");
         return 1;
     }
 
     if (checkFlags(up, low, num, special) == false) {
         printhelp();
-        printf("\nError: No character flag(s) specified\n");
+        printLine("\nError: No character flag(s) specified");
         return 1;
     }
 
-    if (up == true) {input += getUpperAlpha();}
-    if (low == true) {input += getLowerAlpha();}
-    if (num == true) {input += getNumber();}
-    if (special == true) {input += getSpecialChars();}
+    // appends letters to input
+    if (up) {input += getUpperAlpha();}
+    if (low) {input += getLowerAlpha();}
+    if (num) {input += getNumber();}
+    if (special) {input += getSpecialChars();}
 
+    // converts to std::string to pure C string
     char *cInput = new char[input.length() + 1];
     strcpy(cInput, input.c_str());
+
+    // generate and prints password
     char *out = passGen(cInput, len);
-    std::cout << out << std::endl;
+    printLine(out);
     return 0;
 }
 
 int rungui(int argc, char** argv) {
+    // run the GTK application
     auto app = Gtk::Application::create("io.apcsp.passgen");
     return app->make_window_and_run<PassGenUI>(argc, argv);
 }
 
-#endif // UI
+#endif // UI_HXX

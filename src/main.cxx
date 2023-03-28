@@ -1,10 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
 #include <unistd.h>
 #include <string>
 #include <utils.hxx>
 #include <ui.hxx>
-
 
 int main(int argc, char** argv) {
     // flags for program arguments
@@ -16,7 +14,8 @@ int main(int argc, char** argv) {
     int arg;
     int state = 0;
 
-    while ((arg = getopt (argc, argv, ":lAansh")) != -1) {
+    // sets flags accordingly to the program arguments
+    while ((arg = getopt (argc, argv, "Aanshl:")) != -1) {
         switch (arg) {
             case 'A':
                 upAlphaFlag = true;
@@ -36,23 +35,23 @@ int main(int argc, char** argv) {
             case 'h':
                 printhelp();
                 return 0;
-            case '?':
+            case '?': // error handeling
                 if (optopt == 'l') {
-                    printf("Error: No length specified\n");
+                    printLine("Error: No length specified");
                 } else {
                     printhelp();
-                    printf("Error: Unknown Option: %c", optopt);
+                    std::cout << "Error: Unknown Option: " << optopt << std::endl;
                 }
                 return 1;
             default:
-                printhelp();
                 abort();
         }
     }
 
-    if (length < 0 && checkFlags(upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag) == false) {
+    // run GUI version if no argument is setted
+    if (length < 0 && !(checkFlags(upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag))) {
         state = rungui(argc, argv);
-    } else {
+    } else { // otherwise run CUI version
         state = runcui(length, upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag);
     }
     return state;
