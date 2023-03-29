@@ -1,33 +1,42 @@
 #ifndef UI_HXX
 #define UI_HXX
 
-#include <iostream>
 #include <string>
 #include <cstring>
+#include <span>
 #include <utils.hxx>
 #include <passgen.hxx>
 #include <gtkui.hxx>
 using namespace PassGen;
 
-int runcui(int len, bool up, bool low, bool num, bool special) {
-    
+/**
+ * @brief runs the CUI version of program
+ * 
+ * @param len length of the password (int)
+ * @param upper boolean flag for upper case alphabets
+ * @param lower boolean flag for lower case alphabets
+ * @param num boolean flag for numbers
+ * @param special boolean flag for special characters
+ * @return (int) - execution state of program
+ */
+auto runcui(int len, bool upper, bool lower, bool num, bool special) -> int {
     std::string input;
 
     if (len < 0) {
         printhelp();
-        printLine("\nError: Length not specified");
+        printLine("\nError: Length has to be larger than 0");
         return 1;
     }
 
-    if (checkFlags(up, low, num, special) == false) {
+    if (checkFlags(upper, lower, num, special) == false) {
         printhelp();
         printLine("\nError: No character flag(s) specified");
         return 1;
     }
 
     // appends letters to input
-    if (up) {input += getUpperAlpha();}
-    if (low) {input += getLowerAlpha();}
+    if (upper) {input += getUpperAlpha();}
+    if (lower) {input += getLowerAlpha();}
     if (num) {input += getNumber();}
     if (special) {input += getSpecialChars();}
 
@@ -41,7 +50,14 @@ int runcui(int len, bool up, bool low, bool num, bool special) {
     return 0;
 }
 
-int rungui(int argc, char** argv) {
+/**
+ * @brief runs the GUI version of program
+ * 
+ * @param argc argument count (int)
+ * @param argv arguments (List of pure C strings)
+ * @return (int) - execution state of program
+ */
+auto rungui(int argc, char** argv) -> int {
     // run the GTK application
     auto app = Gtk::Application::create("io.apcsp.passgen");
     return app->make_window_and_run<PassGenUI>(argc, argv);

@@ -1,12 +1,11 @@
 #include <gtkui.hxx>
-#include <iostream>
 
 PassGenUI::PassGenUI():
 // initialize widgets
 m_generate_button("Generate"),
-m_main_box(Gtk::Orientation::VERTICAL,10),
-m_char_checks(Gtk::Orientation::VERTICAL,10),
-m_output_box(Gtk::Orientation::VERTICAL, 10),
+m_main_box(Gtk::Orientation::VERTICAL,padding),
+m_char_checks(Gtk::Orientation::VERTICAL,padding),
+m_output_box(Gtk::Orientation::VERTICAL, padding),
 m_upper_check("Include Upper Case Letters"),
 m_lower_check("Include Lower Case Letters"),
 m_num_check("Include Numbers"),
@@ -14,12 +13,13 @@ m_special_chars_check("Include Special Characters"),
 m_title("Password Generator")
 {
     set_title("AP CSP Create Task - Password Generator");
-    set_default_size(600,400);
+    set_default_size(winWidth,winHeight);
+    // link the button event to the function
     m_generate_button.signal_clicked().connect(sigc::mem_fun(*this, &PassGenUI::on_generate_button_clicked));
     
-    // populate the widgets in main box
+    // populate the widgets and other boxes in main box
     set_child(m_main_box);
-    m_main_box.set_margin(10);
+    m_main_box.set_margin(padding);
     m_num_input.set_adjustment(m_num_input_adj);
     m_main_box.append(m_title);
     m_main_box.append(m_char_checks);
@@ -44,7 +44,7 @@ m_title("Password Generator")
 
 PassGenUI::~PassGenUI() = default;
 
-void PassGenUI::on_generate_button_clicked() {
+auto PassGenUI::on_generate_button_clicked() -> void {
     std::string input;
     // appends letters to input according to the flags
     if (m_upper_check.get_active()) {input += PassGen::getUpperAlpha();}
@@ -57,7 +57,16 @@ void PassGenUI::on_generate_button_clicked() {
     // get the length of password to be generated
     int len = m_num_input.get_value_as_int();
     // generate password and show password to output section
-    Glib::ustring output = Glib::convert(PassGen::passGen(cInput, len), "UTF-8", "ISO-8859-1");
+    char* passwd = PassGen::passGen(cInput, len);
+    // Show error alert dialog when passwd returns nullptr and stop execution of function
+    if (passwd == nullptr) {
+        Glib::RefPtr<Gtk::AlertDialog> m_Alert = Gtk::AlertDialog::create();
+        m_Alert->set_message("Error!");
+        m_Alert->set_detail("Please check the form");
+        m_Alert->show(*this);
+        return;
+    }
+    Glib::ustring output = Glib::convert(passwd, "UTF-8", "ISO-8859-1");
     m_output_buffer->set_text(output);
     m_output.set_buffer(m_output_buffer);
 }

@@ -3,10 +3,12 @@
 
 #include <iostream>
 
-// strSize - return the size(length) of string (pure C char list)
-// str (char*) : string to be measured
-// return (int) : size(length) of string
-inline int strSize(char* str) {
+/**
+* @brief return the size(length) of string (pure C char list)
+* @param str pure C string to be measured
+* @return (int) - size(length) of string
+*/
+inline auto strSize(const char *str) -> int {
     int out = 0;
     int index = 0;
     while (str[index] != 0) {
@@ -16,18 +18,21 @@ inline int strSize(char* str) {
     return out;
 }
 
-// printLine - print the passed in argument
-// in (Template<class T>) : takes any type of input
-// return (void) : returns nothing, console output
+/**
+* @brief print the passed in argument
+* @param object takes any type of input that is printable
+* @return (void) - console output the object
+*/
 template<class T>
-inline void printLine(T in) {
-    std::cout << in << std::endl;
+inline auto printLine(T object) -> void {
+    std::cout << object << std::endl;
 }
 
-// printhelp - prints the help for the console application
-// void : takes nothing
-// return (void) : returns nothing, console output
-inline void printhelp() {
+/**
+* @brief prints the help for the console application
+* @return (void) - console output of help document
+*/
+inline auto printhelp() -> void {
     printLine("APCSPCreateTask - Random Password Generator\n");
     printLine("[Usage]: APCSPCreateTask [-A -a -n -s] -l <length>\n");
     printLine("[Arguments]:\n");
@@ -39,13 +44,15 @@ inline void printhelp() {
     printLine("\t-h : print this help\n");
 }
 
-// checkFlags - checks if any flag is enabled
-// upper (bool) - flag for upper case letters
-// lower (bool) - flag for lower case letters
-// num (bool) - flag for numbers
-// special (bool) - flag for special characters
-// reutnr (bool) - returns true if one of any flag is enabled
-inline bool checkFlags(bool upper, bool lower, bool num, bool special) {
+/**
+* @brief checks if any flag is enabled
+* @param upper boolean flag for upper case letters
+* @param lower boolean flag for lower case letters
+* @param num boolean flag for numbers
+* @param special boolean flag for special characters
+* @return (bool) - returns true if one of any flag is enabled
+*/
+inline auto checkFlags(bool upper, bool lower, bool num, bool special) -> bool {
     int count = 0;
     if (upper) {count++;}
     if (lower) {count++;}

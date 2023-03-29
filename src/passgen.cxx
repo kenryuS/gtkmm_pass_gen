@@ -1,75 +1,69 @@
 #include <cstdlib>
 #include <ctime>
-
 #include <utils.hxx>
 #include <passgen.hxx>
 
-// getSpecialChars - get the lower case alphabets
-// void : takes nothing
-// return (char*) : the string with all lower case alphabets in standard ASCII
-char* PassGen::getLowerAlpha() {
-    char* output = new char[26]; // 26 letters
+auto PassGen::getLowerAlpha() -> char* {
+    const int numOfLetters = 26; // 26 letters
+    char* output = new char[numOfLetters];
     if (output == nullptr) {return nullptr;} // check if memory allocation is failed
-    int offset = 97; // 97th letter in ASCII (a)
+    const int offset = 97; // 97th letter in ASCII (a)
     // adds 26 letters (a-z)
-    for (int i = 0; i < 26; i++) {
-        output[i] = offset + i;
+    for (int i = 0; i < numOfLetters; i++) {
+        output[i] = (char)(offset + i);
     }
     return output;
 }
 
-// getUpperAlpha - get the upper case alphabets
-// void : takes nothing
-// return (char*) : the string with all upper case alphabets in standard ASCII
-char* PassGen::getUpperAlpha() {
-    char* output = new char[26]; // 26 letters
+auto PassGen::getUpperAlpha() -> char* {
+    const int numOfLetters = 26; // 26 letters
+    char* output = new char[numOfLetters];
     if (output == nullptr) {return nullptr;} // check if memory allocation is failed
-    int offset = 65; // 65th letter in ASCII (A)
+    const int offset = 65; // 65th letter in ASCII (A)
     // adds 26 letters (A-Z)
-    for (int i = 0; i < 26; i++) {
-        output[i] = offset + i;
+    for (int i = 0; i < numOfLetters; i++) {
+        output[i] = (char)(offset + i);
     }
     return output;
 }
 
-// getNumber - get the numbers
-// void : takes nothing
-// return (char*) : the string with all numbers in standard ASCII
-char* PassGen::getNumber() {
-    char* output = new char[10]; // 10 letters
+auto PassGen::getNumber() -> char* {
+    const int numOfLetters = 10; // 10 letters
+    char* output = new char[numOfLetters];
     if (output == nullptr) {return nullptr;} // check if memory allocation is failed
-    int offset = 48; // 48th letter in ASCII (0)
+    const int offset = 48; // 48th letter in ASCII (0)
     // adds 10 letters (0-9)
-    for (int i = 0; i < 10; i++) {
-        output[i] = offset + i;
+    for (int i = 0; i < numOfLetters; i++) {
+        output[i] = (char)(offset + i);
     }
     return output;
 
 }
 
-// getSpecialChars - get the special characters
-// void : takes nothing
-// return (char*) : the string with all special characters in standard ASCII
-char* PassGen::getSpecialChars() {
+auto PassGen::getSpecialChars() -> char* {
     char* output = new char[31]; // 31 symbols
     if (output == nullptr) {return nullptr;} // check if memory allocation is failed
     int ind = 0;
+    const int start = 33;
+    const int end = 127;
+    const int numStart = 48;
+    const int numEnd = 57;
+    const int upperStart = 65;
+    const int upperEnd = 90;
+    const int lowerStart = 97;
+    const int lowerEnd = 122;
     // adds special characters to output
-    for (int i = 33; i < 127; i++) {
-        if ((48 <= i && i <= 57) || (65 <= i && i <= 90) || (97 <= i && i <= 122)) {
+    for (int i = start; i < end; i++) {
+        if ((numStart <= i && i <= numEnd) || (upperStart <= i && i <= upperEnd) || (lowerStart <= i && i <= lowerEnd)) {
             continue; // skip at the number, upper case and lower case alphabets
         }
-        output[ind] = i;
+        output[ind] = (char)(i);
         ind++;
     }
     return output;
 }
 
-// passGen - Password Generator
-// charList (char*) : list of char to be used in password generation
-// len (int) : length of password
-// return (char*) : the generated password
-char* PassGen::passGen(char *charList, const int len) {
+auto PassGen::passGen(const char *charList, const int len) -> char* {
     if (strSize(charList) == 0) {return nullptr;}
     std::srand(time(nullptr));
     unsigned int randomCharPos; // position of charList which will be randomly selected
@@ -92,25 +86,24 @@ char* PassGen::passGen(char *charList, const int len) {
         previousLetter = output[i-1];
         // checks escape sequences which causes issues
         while (previousLetter == backSlash &&
-            ((currentLetter == 'n') ||
-            (currentLetter == 'a') ||
-            (currentLetter == 'b') ||
-            (currentLetter == 'r') ||
-            (currentLetter == 't') ||
-            (currentLetter == 'v') ||
-            (currentLetter == 'f') ||
-            (currentLetter == 'u') ||
-            (currentLetter == 'U') ||
-            (currentLetter == 'x') ||
-            (currentLetter == 'c'))) {
-                // regenerate random letter
-                randomCharPos = std::rand()%charListSize;
-                output[i] = charList[randomCharPos];
-                // re-set current letter
-                currentLetter = output[i];
-            }
-        }
-    }
-    }
+        ((currentLetter == 'a') || // '\a'
+        (currentLetter == 'b') || // '\b'
+        (currentLetter == 'c') || // '\c'
+        (currentLetter == 'n') || // '\n'
+        (currentLetter == 'f') || // '\f'
+        (currentLetter == 'r') || // '\r'
+        (currentLetter == 't') || // '\t'
+        (currentLetter == 'U') || // '\U'
+        (currentLetter == 'u') || // '\u'
+        (currentLetter == 'v') || // '\v'
+        (currentLetter == 'x') // '\x'
+        )) {
+            // regenerate random letter
+            randomCharPos = std::rand()%charListSize;
+            output[i] = charList[randomCharPos];
+            // re-set current letter
+            currentLetter = output[i];
+        }}
+    }}
     return output;
 }

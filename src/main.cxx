@@ -1,6 +1,4 @@
-#include <iostream>
 #include <unistd.h>
-#include <string>
 #include <utils.hxx>
 #include <ui.hxx>
 
@@ -10,7 +8,7 @@ int main(int argc, char** argv) {
     bool lowAlphaFlag = false;
     bool numFlag = false;
     bool specialCharFlag = false;
-    int length = -1;
+    unsigned int length = 0;
     int arg;
     int state = 0;
 
@@ -49,7 +47,7 @@ int main(int argc, char** argv) {
     }
 
     // run GUI version if no argument is setted
-    if (length < 0 && !(checkFlags(upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag))) {
+    if (length <= 0 && !(checkFlags(upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag))) {
         state = rungui(argc, argv);
     } else { // otherwise run CUI version
         state = runcui(length, upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag);

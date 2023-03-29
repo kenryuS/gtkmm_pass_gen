@@ -1,0 +1,7 @@
+include/gtkui.hxx & src/gtkui.cxx
+- add height and width var for set_default_size() done
+- try to use strlcpy
+
+include/ui.hxx
+- fix redundant bool expr done
+- try to use strlcpy
