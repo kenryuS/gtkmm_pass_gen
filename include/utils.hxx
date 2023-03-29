@@ -20,7 +20,7 @@ inline auto strSize(const char *str) -> int {
 
 /**
 * @brief print the passed in argument
-* @param object takes any type of input that is printable
+* @param object takes any type of input that is able to stdout to the console
 * @return (void) - console output the object
 */
 template<class T>
@@ -32,15 +32,16 @@ inline auto printLine(T object) -> void {
 * @brief prints the help for the console application
 * @return (void) - console output of help document
 */
-inline auto printhelp() -> void {
+inline auto printHelp() -> void {
     printLine("APCSPCreateTask - Random Password Generator\n");
-    printLine("[Usage]: APCSPCreateTask [-A -a -n -s] -l <length>\n");
-    printLine("[Arguments]:\n");
+    printLine("[Usage]: APCSPCreateTask [-A -a -n -s -g] -l <length>\n");
+    printLine("[options]:\n");
     printLine("\t-A : include upper case alphabets in password\n");
     printLine("\t-a : include lower case alphabets in password\n");
     printLine("\t-n : include numbers in password\n");
     printLine("\t-s : include special characters in password\n");
     printLine("\t-l <number> : set the length of the password\n");
+    printLine("\t-g : run in GUI regardless of the previous options\n");
     printLine("\t-h : print this help\n");
 }
 

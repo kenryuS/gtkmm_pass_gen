@@ -63,10 +63,10 @@ auto PassGen::getSpecialChars() -> char* {
     return output;
 }
 
-auto PassGen::passGen(const char *charList, const int len) -> char* {
+auto PassGen::passGen(const char *charList, const unsigned int& len) -> char* {
     if (strSize(charList) == 0) {return nullptr;}
     std::srand(time(nullptr));
-    unsigned int randomCharPos; // position of charList which will be randomly selected
+    unsigned int randomCharPos = 0; // position of charList which will be randomly selected
     const char termChar = '\0';
     const char backSlash = '\\';
     const int charListSize = strSize(charList);
