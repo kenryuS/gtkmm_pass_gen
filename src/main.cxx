@@ -1,4 +1,4 @@
-#include <unistd.h>
+#include <cxxopts.hpp> // command line argument parser library written by jarro2783 (https://github.com/jarro2783/cxxopts)
 #include <ui.hxx>
 
 auto main(int argc, char** argv) -> int{
@@ -14,41 +14,39 @@ auto main(int argc, char** argv) -> int{
     int arg = -1;
     int state = 0; // execution state (0 for success)
 
-    // sets flags accordingly to the program arguments
-    while ((arg = getopt (argc, argv, "Aanshgl:")) != -1) {
-        switch (arg) {
-            case 'A':
-                upAlphaFlag = true;
-                break;
-            case 'a':
-                lowAlphaFlag = true;
-                break;
-            case 'n':
-                numFlag = true;
-                break;
-            case 's':
-                specialCharFlag = true;
-                break;
-            case 'g':
-                guiFlag = true;
-                break;
-            case 'l':
-                length = std::atoi(optarg);
-                break;
-            case 'h':
-                printHelp();
-                return 0;
-            case '?': // error handeling
-                if (optopt == 'l') {
-                    printLine("Error: No length specified");
-                } else {
-                    printHelp();
-                    std::cout << "Error: Unknown Option: -" << (char)optopt << std::endl;
-                }
-                return 1;
-            default:
-                abort();
+    cxxopts::Options options("APCSP_Create_Task", "options for program");
+    options.add_options()
+        ("A,upper", "Include upper case alphabets")
+        ("a,lower", "Include lower case alphabets")
+        ("n,number","Include numbers")
+        ("s,special", "Include special characters")
+        ("g,gui", "Run the GUI version of program, other passed arguments are ignored")
+        ("h,help", "Print help")
+        ("l,length", "Set the length of password", cxxopts::value<int>())
+    ;
+
+    cxxopts::ParseResult result = options.parse(argc, argv);
+
+    if (result.count("help")) {
+        printHelp();
+        return 0;
+    }
+    if (result.count("upper")) upAlphaFlag = true;
+    if (result.count("lower")) lowAlphaFlag = true;
+    if (result.count("number")) numFlag = true;
+    if (result.count("special")) specialCharFlag = true;
+    if (result.count("gui")) guiFlag = true;
+    if (result.count("length") && !guiFlag) {
+        try {
+            length = result["length"].as<int>();
+        } catch (const cxxopts::exceptions::exception &x) {
+            printHelp();
+            std::cerr << x.what();
+            return 1;
         }
+    } else if (!guiFlag) {
+        printHelp();
+        printLine("Error: no length argument");
     }
 
     // run GUI version if -g option is present

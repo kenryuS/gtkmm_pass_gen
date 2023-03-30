@@ -38,6 +38,11 @@ m_title("Password Generator")
     m_output_scroll.set_child(m_output);
     m_output_scroll.set_expand();
     m_output.set_editable(false);
+    m_output.set_monospace(true);
+    m_output.set_cursor_visible(false);
+    m_output_style->load_from_data("#m_output {font-size: 14pt;}");
+    m_output.set_name("m_output");
+    m_output.get_style_context()->add_provider(m_output_style, 1);
     m_output.set_wrap_mode(Gtk::WrapMode::CHAR);
     m_output_box.append(m_output_scroll);
     m_output.set_buffer(m_output_buffer);

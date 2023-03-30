@@ -5,43 +5,51 @@
 
 auto PassGen::getLowerAlpha() -> char* {
     const int numOfLetters = 26; // 26 letters
-    char* output = new char[numOfLetters];
+    char* output = nullptr;
+    output = (char*)malloc(numOfLetters * sizeof(char) + 1);
     if (output == nullptr) {return nullptr;} // check if memory allocation is failed
     const int offset = 97; // 97th letter in ASCII (a)
     // adds 26 letters (a-z)
     for (int i = 0; i < numOfLetters; i++) {
         output[i] = (char)(offset + i);
     }
+    output[numOfLetters] = '\0';
     return output;
 }
 
 auto PassGen::getUpperAlpha() -> char* {
     const int numOfLetters = 26; // 26 letters
-    char* output = new char[numOfLetters];
+    char* output = nullptr;
+    output = (char*)malloc(numOfLetters * sizeof(char) + 1);
     if (output == nullptr) {return nullptr;} // check if memory allocation is failed
     const int offset = 65; // 65th letter in ASCII (A)
     // adds 26 letters (A-Z)
     for (int i = 0; i < numOfLetters; i++) {
         output[i] = (char)(offset + i);
     }
+    output[numOfLetters] = '\0';
     return output;
 }
 
 auto PassGen::getNumber() -> char* {
     const int numOfLetters = 10; // 10 letters
-    char* output = new char[numOfLetters];
+    char* output = nullptr;
+    output = (char*)malloc((numOfLetters) * sizeof(char) + 1);
     if (output == nullptr) {return nullptr;} // check if memory allocation is failed
     const int offset = 48; // 48th letter in ASCII (0)
     // adds 10 letters (0-9)
     for (int i = 0; i < numOfLetters; i++) {
         output[i] = (char)(offset + i);
     }
+    output[numOfLetters] = '\0';
     return output;
 
 }
 
 auto PassGen::getSpecialChars() -> char* {
-    char* output = new char[31]; // 31 symbols
+    const int numOfLetters = 31; // 31 symbols
+    char* output = nullptr;
+    output = (char*)malloc((numOfLetters) * sizeof(char) + 1);
     if (output == nullptr) {return nullptr;} // check if memory allocation is failed
     int ind = 0;
     const int start = 33;
@@ -60,6 +68,7 @@ auto PassGen::getSpecialChars() -> char* {
         output[ind] = (char)(i);
         ind++;
     }
+    output[numOfLetters] = '\0';
     return output;
 }
 

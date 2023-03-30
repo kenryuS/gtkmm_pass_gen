@@ -21,12 +21,6 @@ using namespace PassGen;
 auto runcui(const unsigned int& len, const bool& upper, const bool& lower, const bool& num, const bool& special) -> int {
     std::string input;
 
-    if (len < 0) {
-        printHelp();
-        printLine("\nError: Length has to be larger than 0");
-        return 1;
-    }
-
     if (!checkFlags(upper, lower, num, special)) {
         printHelp();
         printLine("\nError: No character flag(s) specified");
@@ -58,7 +52,7 @@ auto runcui(const unsigned int& len, const bool& upper, const bool& lower, const
 auto rungui(int argc, char** argv) -> int {
     // run the GTK application
     auto app = Gtk::Application::create("apcsp.passgen");
-    return app->make_window_and_run<PassGenUI>(argc, argv);
+    return app->make_window_and_run<PassGenUI>(0,nullptr);
 }
 
 #endif // UI_HXX
