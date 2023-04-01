@@ -3,7 +3,6 @@
 
 #include <string>
 #include <cstring>
-#include <span>
 #include <utils.hxx>
 #include <passgen.hxx>
 #include <gtkui.hxx>
@@ -19,15 +18,8 @@ using namespace PassGen;
 * @return (int) - execution state of program
 */
 auto runcui(const unsigned int& len, const bool& upper, const bool& lower, const bool& num, const bool& special) -> int {
-    std::string input;
-
-    if (!checkFlags(upper, lower, num, special)) {
-        printHelp();
-        printLine("\nError: No character flag(s) specified");
-        return 1;
-    }
-
     // appends letters to input
+    std::string input;
     if (upper) {input += getUpperAlpha();}
     if (lower) {input += getLowerAlpha();}
     if (num) {input += getNumber();}
@@ -37,7 +29,7 @@ auto runcui(const unsigned int& len, const bool& upper, const bool& lower, const
     char *cInput = new char[input.length() + 1];
     strcpy(cInput, input.c_str());
 
-    // generate and prints password
+    // generate, prints password, and exit with status of 0 (success)
     char *out = passGen(cInput, len);
     std::cout << "Generated Password: " << out << std::endl;
     return 0;
@@ -52,7 +44,7 @@ auto runcui(const unsigned int& len, const bool& upper, const bool& lower, const
 auto rungui(int argc, char** argv) -> int {
     // run the GTK application
     auto app = Gtk::Application::create("apcsp.passgen");
-    return app->make_window_and_run<PassGenUI>(0,nullptr);
+    return app->make_window_and_run<PassGenUI>(0,nullptr); // run GTK app with no arguments
 }
 
 #endif // UI_HXX

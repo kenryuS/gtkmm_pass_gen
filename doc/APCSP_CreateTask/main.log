@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2023.2.26)  28 MAR 2023 10:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2023.2.26)  31 MAR 2023 13:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -130,83 +130,83 @@ File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 ) (../../src/main.cxx
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 42--45
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+Underfull \hbox (badness 10000) in paragraph at lines 40--43
 []\OT1/cmr/bx/n/12 passgen.hxx
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 42--45
+Underfull \hbox (badness 10000) in paragraph at lines 40--43
 
  []
 
-(../../include/passgen.hxx) [3]
-Underfull \hbox (badness 10000) in paragraph at lines 51--54
+(../../include/passgen.hxx [2])
+Underfull \hbox (badness 10000) in paragraph at lines 47--50
 []\OT1/cmr/bx/n/12 passgen.cxx
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 51--54
+Underfull \hbox (badness 10000) in paragraph at lines 47--50
 
  []
 
-(../../src/passgen.cxx [4] [5]) [6]
-Underfull \hbox (badness 10000) in paragraph at lines 60--63
+(../../src/passgen.cxx [3] [4])
+Underfull \hbox (badness 10000) in paragraph at lines 54--57
 []\OT1/cmr/bx/n/12 utils.hxx
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--63
+Underfull \hbox (badness 10000) in paragraph at lines 54--57
 
  []
 
-(../../include/utils.hxx [7]) [8]
-Underfull \hbox (badness 10000) in paragraph at lines 69--72
+(../../include/utils.hxx [5])
+Underfull \hbox (badness 10000) in paragraph at lines 61--64
 []\OT1/cmr/bx/n/12 ui.hxx
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--72
+Underfull \hbox (badness 10000) in paragraph at lines 61--64
 
  []
 
-(../../include/ui.hxx) [9]
-Underfull \hbox (badness 10000) in paragraph at lines 78--81
+(../../include/ui.hxx [6])
+Underfull \hbox (badness 10000) in paragraph at lines 68--71
 []\OT1/cmr/bx/n/12 gtkui.hxx
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--81
+Underfull \hbox (badness 10000) in paragraph at lines 68--71
 
  []
 
-(../../include/gtkui.hxx) [10]
-Underfull \hbox (badness 10000) in paragraph at lines 87--90
+(../../include/gtkui.hxx [7])
+Underfull \hbox (badness 10000) in paragraph at lines 75--78
 []\OT1/cmr/bx/n/12 gtkui.cxx
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--90
+Underfull \hbox (badness 10000) in paragraph at lines 75--78
 
  []
 
-(../../src/gtkui.cxx [11]) [12] (./main.aux) ) 
+(../../src/gtkui.cxx [8] [9]) [10] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 3545 strings out of 478238
- 49145 string characters out of 5850456
- 985009 words of memory out of 5000000
- 21798 multiletter control sequences out of 15000+600000
+ 3617 strings out of 478238
+ 50202 string characters out of 5850456
+ 939009 words of memory out of 5000000
+ 21870 multiletter control sequences out of 15000+600000
  470499 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,6n,64p,204b,1841s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb
-></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on main.pdf (12 pages, 75873 bytes).
+ 40i,6n,64p,229b,1841s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.
+pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on main.pdf (10 pages, 82586 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
+ 57 PDF objects out of 1000 (max. 8388607)
+ 36 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

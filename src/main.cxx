@@ -13,8 +13,10 @@ auto main(int argc, char** argv) -> int{
     unsigned int length = 0;
     int arg = -1;
     int state = 0; // execution state (0 for success)
+    bool flagEnabled = false;
 
-    cxxopts::Options options("APCSP_Create_Task", "options for program");
+    // parse and logics for command line options
+    cxxopts::Options options("APCSP Create Task", "Random Password Generator");
     options.add_options()
         ("A,upper", "Include upper case alphabets")
         ("a,lower", "Include lower case alphabets")
@@ -25,7 +27,15 @@ auto main(int argc, char** argv) -> int{
         ("l,length", "Set the length of password", cxxopts::value<int>())
     ;
 
-    cxxopts::ParseResult result = options.parse(argc, argv);
+    cxxopts::ParseResult result;
+
+    try {
+        result = options.parse(argc, argv);
+    } catch (const cxxopts::exceptions::parsing &e) {
+        printHelp();
+        std::cerr << e.what() << "\n";
+        return 1;
+    }
 
     if (result.count("help")) {
         printHelp();
@@ -35,24 +45,20 @@ auto main(int argc, char** argv) -> int{
     if (result.count("lower")) lowAlphaFlag = true;
     if (result.count("number")) numFlag = true;
     if (result.count("special")) specialCharFlag = true;
+    flagEnabled = checkFlags(upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag);
     if (result.count("gui")) guiFlag = true;
-    if (result.count("length") && !guiFlag) {
-        try {
-            length = result["length"].as<int>();
-        } catch (const cxxopts::exceptions::exception &x) {
-            printHelp();
-            std::cerr << x.what();
-            return 1;
-        }
-    } else if (!guiFlag) {
+    if (result.count("length") && !guiFlag && flagEnabled) {
+        length = result["length"].as<int>();
+    } else if (!guiFlag && flagEnabled) {
         printHelp();
         printLine("Error: no length argument");
+        return 1;
     }
 
     // run GUI version if -g option is present
     if (guiFlag) {
         state = rungui(argc, argv);
-    } else if (length >= 0 && checkFlags(upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag)){ // otherwise run CUI version
+    } else if (length > 0 && flagEnabled){ // otherwise run CUI version
         state = runcui(length, upAlphaFlag, lowAlphaFlag, numFlag, specialCharFlag);
     } else { // if no argument specified, report error and set execution state 1 (failure)
         printHelp();

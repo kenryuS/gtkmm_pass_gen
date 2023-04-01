@@ -35,7 +35,7 @@ inline auto printLine(T object) -> void {
 inline auto printHelp() -> void {
     printLine("APCSPCreateTask - Random Password Generator\n");
     printLine("[Usage]: APCSPCreateTask [-A -a -n -s -g] -l <length>\n");
-    printLine("[options]:\n");
+    printLine("[Options]:\n");
     printLine("\t-A : include upper case alphabets in password\n");
     printLine("\t-a : include lower case alphabets in password\n");
     printLine("\t-n : include numbers in password\n");
