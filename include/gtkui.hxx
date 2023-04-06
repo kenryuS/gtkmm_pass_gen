@@ -1,7 +1,8 @@
 #ifndef GTKUI_HXX
 #define GTKUI_HXX
 
-#include <gtkmm.h>
+#include "glibmm/ustring.h"
+#include <gtkmm.h> // GTK GUI Library (C++ wrap)
 #include <passgen.hxx>
 
 class PassGenUI : public Gtk::Window
@@ -15,6 +16,13 @@ class PassGenUI : public Gtk::Window
         * @return (void) Generate password, set to m_output_buffer, and show to the user
         */
         auto on_generate_button_clicked() -> void; // button event
+        /**
+        * @brief Show error dialog
+        * @param e PassGen::exceptions::exception exception to be reported
+        * @param extraMsg Glib::ustring Extra message to be shown along side the reported exception
+        * @return (void) Show the dialog
+        */
+        auto showErrorDialog(PassGen::exceptions::exception &e, Glib::ustring extraMsg) -> void;
     private:
         const int winHeight = 480;
         const int winWidth = 640;

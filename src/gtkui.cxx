@@ -1,3 +1,6 @@
+#include "glibmm/ustring.h"
+#include "passgen.hxx"
+#include "utils.hxx"
 #include <gtkui.hxx>
 
 PassGenUI::PassGenUI():
@@ -50,13 +53,31 @@ m_title("Password Generator")
 
 PassGenUI::~PassGenUI() = default;
 
+auto PassGenUI::showErrorDialog(PassGen::exceptions::exception &e, Glib::ustring extraMsg="") -> void {
+    Glib::RefPtr<Gtk::AlertDialog> m_Alert = Gtk::AlertDialog::create();
+    m_Alert->set_message("Error!");
+    m_Alert->set_detail((Glib::ustring)e.what() + "\n" + extraMsg);
+    m_Alert->show(*this);
+}
+
 auto PassGenUI::on_generate_button_clicked() -> void {
     // appends letters to input according to the flags
     std::string input;
-    if (m_upper_check.get_active()) {input += PassGen::getUpperAlpha();}
-    if (m_lower_check.get_active()) {input += PassGen::getLowerAlpha();}
-    if (m_num_check.get_active()) {input += PassGen::getNumber();}
-    if (m_special_chars_check.get_active()) {input += PassGen::getSpecialChars();}
+    try {
+        if (m_upper_check.get_active()) {input += PassGen::getUpperAlpha();}
+        if (m_lower_check.get_active()) {input += PassGen::getLowerAlpha();}
+        if (m_num_check.get_active()) {input += PassGen::getNumber();}
+        if (m_special_chars_check.get_active()) {input += PassGen::getSpecialChars();}
+    }
+    catch (PassGen::exceptions::memoryAllocationFailiure &e) {
+        showErrorDialog(e, "Please free some memory.");
+        return;
+    }
+    catch (...) {
+        PassGen::exceptions::exception error = PassGen::exceptions::unknownError();
+        showErrorDialog(error);
+        return;
+    }
 
     // convert std::string to pure C string
     char* cInput = new char[input.length() + 1];
@@ -66,16 +87,25 @@ auto PassGenUI::on_generate_button_clicked() -> void {
     int len = m_num_input.get_value_as_int();
 
     // generate password
-    char* passwd = PassGen::passGen(cInput, len);
-
-    // Show error alert dialog when passwd returns nullptr and stop execution of function
-    if (passwd == nullptr) {
-        Glib::RefPtr<Gtk::AlertDialog> m_Alert = Gtk::AlertDialog::create();
-        m_Alert->set_message("Error!");
-        m_Alert->set_detail("Please check the form");
-        m_Alert->show(*this);
+    char* passwd = nullptr;
+    try {
+        passwd = PassGen::passGen(cInput, len);
+    }
+    // Show error alert dialog when passwd threw exceptions
+    catch (PassGen::exceptions::memoryAllocationFailiure &e) {
+        showErrorDialog(e, "Please free some memory.");
         return;
     }
+    catch (PassGen::exceptions::noCharList &e) {
+        showErrorDialog(e, "Please check the form.");
+        return;
+    }
+    catch (...) {
+        PassGen::exceptions::exception error = PassGen::exceptions::unknownError();
+        showErrorDialog(error);
+        return;
+    }
+
 
     // Show the passwd by setting text and buffer
     Glib::ustring output = Glib::convert(passwd, "UTF-8", "ISO-8859-1"); // convert to appropriate type and encoding of text

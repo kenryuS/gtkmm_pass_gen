@@ -21,7 +21,7 @@ inline auto strSize(const char *str) -> int {
 /**
 * @brief print the passed in argument
 * @param object takes any type of input that is able to stdout to the console
-* @return (void) - console output the object
+* @return (void) - console output of the object
 */
 template<class T>
 inline auto printLine(T object) -> void {
@@ -54,12 +54,8 @@ inline auto printHelp() -> void {
 * @return (bool) - returns true if one of any flag is enabled
 */
 inline auto checkFlags(bool upper, bool lower, bool num, bool special) -> bool {
-    int count = 0;
-    if (upper) {count++;}
-    if (lower) {count++;}
-    if (num) {count++;}
-    if (special) {count++;}
-    return count > 0;
+    bool isEnabled = (upper || lower || num || special);
+    return isEnabled;
 }
 
 #endif // UTILS_HXX
