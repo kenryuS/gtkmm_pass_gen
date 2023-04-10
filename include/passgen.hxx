@@ -1,14 +1,11 @@
 #ifndef PASSGEN_HXX
 #define PASSGEN_HXX
 
-#include <csignal>
 #include <cstdlib>
 #include <ctime>
 #include <exception>
 
 namespace PassGen {
-    // declare functions (not defined yet)
-    
     /**
     * @brief Get the list of upper alphabet letters
     * @return char* - List of upper alphabet letters
@@ -41,7 +38,7 @@ namespace PassGen {
     */
     auto passGen(const char *charList, const unsigned int& len) -> char*;
 
-    // exceptions for PassGen namespace
+    // exceptions for the functions in PassGen namespace
     namespace exceptions {
         // base exception class
         class exception : public std::exception {
@@ -57,27 +54,27 @@ namespace PassGen {
                 char* m_message = nullptr; // error message (init with nullptr)
         };
 
-        // exception threw when something is failed to allocate its memory
+        // exception to be thrown when something is failed to allocate its memory
         class memoryAllocationFailiure : public exception {
             public:
                 explicit memoryAllocationFailiure() : exception((char*)"Couldn't allocate memory space!") {};
-                // construct with the base class supplied with specified error message
+                // call construct from the base class supplied with specified error message
         };
 
-        // exception threw when there is no content in charList (PassGen::passgen())
+        // exception to be thrown when there is no content in charList (PassGen::passgen())
         class noCharList : public exception {
             public:
                 explicit noCharList() : exception((char*)"No character list specified!") {};
-                // construct with the base class supplied with specified error message
+                // call construct from the base class supplied with specified error message
         };
 
         // exception to be used when unknown error occured
         class unknownError : public exception {
             public:
                 explicit unknownError() : exception((char*)"Unknown Error Caught : Mark me 0 :(") {};
-                // construct with the base class supplied with specified error message
+                // call construct from the base class supplied with specified error message
         };
-    }
-}
+    } // PassGen::exceptions
+} // PassGen
 
 #endif // PASSGEN_HXX

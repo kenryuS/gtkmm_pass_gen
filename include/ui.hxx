@@ -1,6 +1,12 @@
 #ifndef UI_HXX
 #define UI_HXX
 
+// enumeration of states of program
+enum PROGRAMSTATE : int {
+    SUCCESS, // 0
+    FAIL // 1
+};
+
 #include <string>
 #include <cstring>
 #include <utils.hxx>
@@ -25,14 +31,10 @@ inline auto runcui(const unsigned int& len, const bool& upper, const bool& lower
         if (num) {input += PassGen::getNumber();}
         if (special) {input += PassGen::getSpecialChars();}
     }
-    catch (PassGen::exceptions::memoryAllocationFailiure &e) {
-        printLine(e.what());
-        return 1;
-    }
-    catch (...) {
-        PassGen::exceptions::exception error = PassGen::exceptions::unknownError();
-        printLine(error.what());
-        return 1;
+    // print out error when any of getChars threw exception
+    catch (PassGen::exceptions::memoryAllocationFailiure &err) {
+        printLine(err.what());
+        return FAIL;
     }
 
     // converts to std::string to pure C string
@@ -44,23 +46,24 @@ inline auto runcui(const unsigned int& len, const bool& upper, const bool& lower
     try {
         out = PassGen::passGen(cInput, len);
     }
-    catch (PassGen::exceptions::memoryAllocationFailiure &e) {
-        printLine(e.what());
-        return 1;
+    // print out error when PassGen::passGen threw exception
+    catch (PassGen::exceptions::memoryAllocationFailiure &err) {
+        printLine(err.what());
+        return FAIL;
     }
-    catch (PassGen::exceptions::noCharList &e) {
-        printLine(e.what());
-        return 1;
+    catch (PassGen::exceptions::noCharList &err) {
+        printLine(err.what());
+        return FAIL;
     }
     catch (...) {
         PassGen::exceptions::exception error = PassGen::exceptions::unknownError();
         printLine(error.what());
-        return 1;
+        return FAIL;
     }
 
     // prints password, and exit with status of 0 (success)
-    std::cout << "Generated Password: " << out << std::endl;
-    return 0;
+    std::cout << out << std::endl;
+    return SUCCESS;
 }
 
 /**

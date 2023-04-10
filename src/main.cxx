@@ -1,8 +1,5 @@
 #include <cxxopts.hpp> // command line argument parser library written by jarro2783 (https://github.com/jarro2783/cxxopts)
 #include <ui.hxx>
-// define the alias to the value
-#define SUCCESS 0
-#define FAIL 1
 
 auto main(int argc, char** argv) -> int{
     // flags for program arguments
@@ -35,7 +32,7 @@ auto main(int argc, char** argv) -> int{
         result = options.parse(argc, argv);
     } catch (const cxxopts::exceptions::parsing &e) {
         printHelp();
-        std::cerr << e.what() << "\n";
+        std::cerr << e.what() << "\n"; // show error
         return FAIL;
     }
 
@@ -59,7 +56,7 @@ auto main(int argc, char** argv) -> int{
     // length option
     if (result.count("length") && !guiFlag && flagEnabled) {
         length = result["length"].as<int>();
-    } else if (!guiFlag && flagEnabled) {
+    } else if (!guiFlag && flagEnabled) { // print out error when no character flag is enabled but only length option specified
         printHelp();
         printLine("Error: no length argument");
         return FAIL;

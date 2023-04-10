@@ -36,13 +36,13 @@ inline auto printHelp() -> void {
     printLine("APCSPCreateTask - Random Password Generator\n");
     printLine("[Usage]: APCSPCreateTask [-A -a -n -s -g] -l <length>\n");
     printLine("[Options]:\n");
-    printLine("\t-A : include upper case alphabets in password\n");
-    printLine("\t-a : include lower case alphabets in password\n");
-    printLine("\t-n : include numbers in password\n");
-    printLine("\t-s : include special characters in password\n");
-    printLine("\t-l <number> : set the length of the password\n");
-    printLine("\t-g : run in GUI regardless of the previous options\n");
-    printLine("\t-h : print this help\n");
+    printLine("\t-A, --upper : include upper case alphabets in password\n");
+    printLine("\t-a, --lower : include lower case alphabets in password\n");
+    printLine("\t-n, --number : include numbers in password\n");
+    printLine("\t-s, --special  : include special characters in password\n");
+    printLine("\t-l, --length <number> : set the length of the password\n");
+    printLine("\t-g, --gui : run in GUI regardless of the previous options\n");
+    printLine("\t-h, --help : print this help\n");
 }
 
 /**

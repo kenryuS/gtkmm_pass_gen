@@ -1,19 +1,18 @@
-#include "glibmm/ustring.h"
 #include "passgen.hxx"
 #include "utils.hxx"
 #include <gtkui.hxx>
 
 PassGenUI::PassGenUI():
-// initialize widgets
-m_generate_button("Generate"),
-m_main_box(Gtk::Orientation::VERTICAL,widgetMargin),
-m_char_checks(Gtk::Orientation::VERTICAL,widgetMargin),
-m_output_box(Gtk::Orientation::VERTICAL, widgetMargin),
-m_upper_check("Include Upper Case Letters"),
-m_lower_check("Include Lower Case Letters"),
-m_num_check("Include Numbers"),
-m_special_chars_check("Include Special Characters"),
-m_title("Password Generator")
+    // initialize widgets
+    m_generate_button("Generate"),
+    m_main_box(Gtk::Orientation::VERTICAL,widgetMargin),
+    m_char_checks(Gtk::Orientation::VERTICAL,widgetMargin),
+    m_output_box(Gtk::Orientation::VERTICAL, widgetMargin),
+    m_upper_check("Include Upper Case Letters"),
+    m_lower_check("Include Lower Case Letters"),
+    m_num_check("Include Numbers"),
+    m_special_chars_check("Include Special Characters"),
+    m_title("Password Generator")
 {
     // set window props
     set_title("AP CSP Create Task - Password Generator");
@@ -24,22 +23,23 @@ m_title("Password Generator")
     // populate the widgets and other boxes in main box
     set_child(m_main_box);
     m_main_box.set_margin(widgetMargin);
-    m_num_input.set_adjustment(m_num_input_adj);
+    m_num_input.set_adjustment(m_num_input_adj); // set the range of m_num_input widget can handle
     m_main_box.append(m_title);
     m_main_box.append(m_char_checks);
     m_main_box.append(m_num_input);
     m_main_box.append(m_generate_button);
     m_main_box.append(m_output_box);
 
-    // populate the widgets in letter configuration section
+    // populate the widgets in character configuration section
     m_char_checks.append(m_upper_check);
     m_char_checks.append(m_lower_check);
     m_char_checks.append(m_num_check);
     m_char_checks.append(m_special_chars_check);
 
-    // populate the widgets in ouput section and configure widgets
+    // populate the widgets in ouput section
     m_output_scroll.set_child(m_output);
     m_output_scroll.set_expand();
+    // set the style of m_output using properties and CSS
     m_output.set_editable(false);
     m_output.set_monospace(true);
     m_output.set_cursor_visible(false);
@@ -47,16 +47,16 @@ m_title("Password Generator")
     m_output.set_name("m_output");
     m_output.get_style_context()->add_provider(m_output_style, 1);
     m_output.set_wrap_mode(Gtk::WrapMode::CHAR);
+    // add widget to the box
     m_output_box.append(m_output_scroll);
-    m_output.set_buffer(m_output_buffer);
 }
 
 PassGenUI::~PassGenUI() = default;
 
-auto PassGenUI::showErrorDialog(PassGen::exceptions::exception &e, Glib::ustring extraMsg="") -> void {
+auto PassGenUI::showErrorDialog(PassGen::exceptions::exception &err, Glib::ustring extraMsg="") -> void {
     Glib::RefPtr<Gtk::AlertDialog> m_Alert = Gtk::AlertDialog::create();
     m_Alert->set_message("Error!");
-    m_Alert->set_detail((Glib::ustring)e.what() + "\n" + extraMsg);
+    m_Alert->set_detail((Glib::ustring)err.what() + "\n" + extraMsg);
     m_Alert->show(*this);
 }
 
@@ -69,13 +69,9 @@ auto PassGenUI::on_generate_button_clicked() -> void {
         if (m_num_check.get_active()) {input += PassGen::getNumber();}
         if (m_special_chars_check.get_active()) {input += PassGen::getSpecialChars();}
     }
-    catch (PassGen::exceptions::memoryAllocationFailiure &e) {
-        showErrorDialog(e, "Please free some memory.");
-        return;
-    }
-    catch (...) {
-        PassGen::exceptions::exception error = PassGen::exceptions::unknownError();
-        showErrorDialog(error);
+    // show error dialog when any of getChars threw exception
+    catch (PassGen::exceptions::memoryAllocationFailiure &err) {
+        showErrorDialog(err, "Please free some memory.");
         return;
     }
 
@@ -91,13 +87,13 @@ auto PassGenUI::on_generate_button_clicked() -> void {
     try {
         passwd = PassGen::passGen(cInput, len);
     }
-    // Show error alert dialog when passwd threw exceptions
-    catch (PassGen::exceptions::memoryAllocationFailiure &e) {
-        showErrorDialog(e, "Please free some memory.");
+    // Show error dialog when PassGen::passGen threw exceptions
+    catch (PassGen::exceptions::memoryAllocationFailiure &err) {
+        showErrorDialog(err, "Please free some memory.");
         return;
     }
-    catch (PassGen::exceptions::noCharList &e) {
-        showErrorDialog(e, "Please check the form.");
+    catch (PassGen::exceptions::noCharList &err) {
+        showErrorDialog(err, "Please check the form.");
         return;
     }
     catch (...) {

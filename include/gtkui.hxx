@@ -1,8 +1,7 @@
 #ifndef GTKUI_HXX
 #define GTKUI_HXX
 
-#include "glibmm/ustring.h"
-#include <gtkmm.h> // GTK GUI Library (C++ wrap)
+#include <gtkmm.h> // GTK GUI Library (C++ wrapper)
 #include <passgen.hxx>
 
 class PassGenUI : public Gtk::Window
@@ -16,28 +15,47 @@ class PassGenUI : public Gtk::Window
         * @return (void) Generate password, set to m_output_buffer, and show to the user
         */
         auto on_generate_button_clicked() -> void; // button event
+        
         /**
-        * @brief Show error dialog
-        * @param e PassGen::exceptions::exception exception to be reported
-        * @param extraMsg Glib::ustring Extra message to be shown along side the reported exception
+        * @brief Show error dialog with exceptions and message
+        * @param err PassGen::exceptions::exception exception to be reported
+        * @param extraMsg Glib::ustring Extra message to be shown along side the reported exception, set empty by default
         * @return (void) Show the dialog
         */
-        auto showErrorDialog(PassGen::exceptions::exception &e, Glib::ustring extraMsg) -> void;
+        auto showErrorDialog(PassGen::exceptions::exception &err, Glib::ustring extraMsg) -> void;
+
     private:
         const int winHeight = 480;
         const int winWidth = 640;
         const int widgetMargin = 10;
         const int maxLength = 8192;
-        Gtk::CheckButton m_upper_check, m_lower_check, m_num_check, m_special_chars_check; // checkboxes
-        Gtk::Box m_char_checks, m_output_box, m_main_box; // boxes (containers)
+
+        // checkboxes
+        Gtk::CheckButton m_upper_check, m_lower_check, m_num_check, m_special_chars_check;
+
+        // boxes (containers)
+        Gtk::Box m_char_checks, m_output_box, m_main_box;
+
+        // title of the program
         Gtk::Label m_title;
+
         Gtk::Button m_generate_button;
-        Gtk::SpinButton m_num_input; // length input
-        Glib::RefPtr<Gtk::Adjustment> m_num_input_adj = Gtk::Adjustment::create(0, 0, maxLength); // sets range for m_num_input (0-maxLength)
+
+        // length input
+        Gtk::SpinButton m_num_input;
+
+        // sets range for m_num_input (0-maxLength)
+        Glib::RefPtr<Gtk::Adjustment> m_num_input_adj = Gtk::Adjustment::create(0, 0, maxLength); 
+
+        // Privides CSS to the GTK widget
         Glib::RefPtr<Gtk::CssProvider> m_output_style = Gtk::CssProvider::create();
+
+        // Text area for output
         Gtk::ScrolledWindow m_output_scroll;
         Gtk::TextView m_output;
-        Glib::RefPtr<Gtk::TextBuffer> m_output_buffer = Gtk::TextBuffer::create(); // text buffer for m_output
+
+        // text buffer for m_output
+        Glib::RefPtr<Gtk::TextBuffer> m_output_buffer = Gtk::TextBuffer::create();
 };
 
 #endif // GTKUI_HXX

@@ -2,7 +2,7 @@
 #include <passgen.hxx>
 
 auto PassGen::getLowerAlpha() -> char* {
-    const int numOfLetters = 26; // 26 letters
+    const int numOfLetters = 26;
     char* output = nullptr; // initialize pointer
     output = (char*)malloc(numOfLetters * sizeof(char) + 1); // allocate memory for 26 letters and a terminate character
     if (output == nullptr) {throw PassGen::exceptions::memoryAllocationFailiure(); return nullptr;} // check if memory allocation is failed
@@ -16,7 +16,7 @@ auto PassGen::getLowerAlpha() -> char* {
 }
 
 auto PassGen::getUpperAlpha() -> char* {
-    const int numOfLetters = 26; // 26 letters
+    const int numOfLetters = 26;
     char* output = nullptr; // initialize pointer
     output = (char*)malloc(numOfLetters * sizeof(char) + 1); // allocate memory for 26 letters + terminate character
     if (output == nullptr) {throw PassGen::exceptions::memoryAllocationFailiure(); return nullptr;} // check if memory allocation is failed
@@ -30,7 +30,7 @@ auto PassGen::getUpperAlpha() -> char* {
 }
 
 auto PassGen::getNumber() -> char* {
-    const int numOfLetters = 10; // 10 letters
+    const int numOfLetters = 10;
     char* output = nullptr; // initialize pointer
     output = (char*)malloc((numOfLetters) * sizeof(char) + 1);
     if (output == nullptr) {throw PassGen::exceptions::memoryAllocationFailiure(); return nullptr;} // check if memory allocation is failed
@@ -49,16 +49,22 @@ auto PassGen::getSpecialChars() -> char* {
     char* output = nullptr; // initialize pointer
     output = (char*)malloc((numOfLetters) * sizeof(char) + 1);
     if (output == nullptr) {throw PassGen::exceptions::memoryAllocationFailiure(); return nullptr;} // check if memory allocation is failed
-    int ind = 0;
+
+    int ind = 0; // index in the output list
+
     // loop config and range exclusion config
-    const int start = 33;
-    const int end = 127;
-    const int numStart = 48;
-    const int numEnd = 57;
-    const int upperStart = 65;
-    const int upperEnd = 90;
-    const int lowerStart = 97;
-    const int lowerEnd = 122;
+    const int start = 33; // loop through ASCII #33
+    const int end = 127; // to #127
+
+    const int numStart = 48; // ASCII range that represents number (#48
+    const int numEnd = 57; // to #57)
+
+    const int upperStart = 65; // ASCII range that represents upper case alphabets (#65
+    const int upperEnd = 90; // to #90)
+
+    const int lowerStart = 97; // ASCII range that represents lower case alphabets (#97
+    const int lowerEnd = 122; // to #122)
+
     // adds special characters to output
     for (int i = start; i < end; i++) {
         if ((numStart <= i && i <= numEnd) || (upperStart <= i && i <= upperEnd) || (lowerStart <= i && i <= lowerEnd)) {
