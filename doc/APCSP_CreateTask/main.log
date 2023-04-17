@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.3)  9 APR 2023 22:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.3)  17 APR 2023 07:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -181,7 +181,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--71
 
  []
 
-(../../include/gtkui.hxx [9])
+(../../include/gtkui.hxx [9] [10])
 Underfull \hbox (badness 10000) in paragraph at lines 75--78
 []\OT1/cmr/bx/n/12 gtkui.cxx
  []
@@ -191,7 +191,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 75--78
 
  []
 
-[10] (../../src/gtkui.cxx [11] [12]) [13] (./main.aux) ) 
+(../../src/gtkui.cxx [11] [12]) [13] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  3657 strings out of 476025
  50879 string characters out of 5796533
@@ -200,11 +200,11 @@ Here is how much of TeX's memory you used:
  513527 words of font info for 37 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,6n,64p,429b,1843s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on main.pdf (13 pages, 92642 bytes).
+</usr/share/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on main.pdf (13 pages, 93107 bytes).
 PDF statistics:
  67 PDF objects out of 1000 (max. 8388607)
  43 compressed objects within 1 object stream

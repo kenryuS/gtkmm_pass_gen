@@ -7,8 +7,10 @@ enum PROGRAMSTATE : int {
     FAIL // 1
 };
 
+// include libraries for string operations
 #include <string>
 #include <cstring>
+// include utilities, passgen functions, and GUI app
 #include <utils.hxx>
 #include <passgen.hxx>
 #include <gtkui.hxx>
@@ -38,13 +40,13 @@ inline auto runcui(const unsigned int& len, const bool& upper, const bool& lower
     }
 
     // converts to std::string to pure C string
-    char *cInput = new char[input.length() + 1];
-    strcpy(cInput, input.c_str());
+    char *cInput = new char[input.length() + 1]; // allocate memory for length of input and 1 terminate character
+    strcpy(cInput, input.c_str()); // copy the input to cInput
 
     // generate password, report error and exit with status of 1 (failiure) if any caught
-    char *out = nullptr;
+    char *out = nullptr; // initialize with nullptr
     try {
-        out = PassGen::passGen(cInput, len);
+        out = PassGen::passGen(cInput, len); // generate password
     }
     // print out error when PassGen::passGen threw exception
     catch (PassGen::exceptions::memoryAllocationFailiure &err) {
@@ -72,7 +74,7 @@ inline auto runcui(const unsigned int& len, const bool& upper, const bool& lower
 */
 inline auto rungui() -> int {
     // run the GTK application
-    auto app = Gtk::Application::create("apcsp.passgen");
+    auto app = Gtk::Application::create("apcsp.passgen"); // create instance of application
     return app->make_window_and_run<PassGenUI>(0,nullptr); // run GTK app with no arguments
 }
 

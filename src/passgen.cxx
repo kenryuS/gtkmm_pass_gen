@@ -4,7 +4,7 @@
 auto PassGen::getLowerAlpha() -> char* {
     const int numOfLetters = 26;
     char* output = nullptr; // initialize pointer
-    output = (char*)malloc(numOfLetters * sizeof(char) + 1); // allocate memory for 26 letters and a terminate character
+    output = (char*)malloc((numOfLetters + 1) * sizeof(char)); // allocate memory for 26 letters and a terminate character
     if (output == nullptr) {throw PassGen::exceptions::memoryAllocationFailiure(); return nullptr;} // check if memory allocation is failed
     const int offset = 97; // 97th letter in ASCII (a)
     // adds 26 letters (a-z)
@@ -18,7 +18,7 @@ auto PassGen::getLowerAlpha() -> char* {
 auto PassGen::getUpperAlpha() -> char* {
     const int numOfLetters = 26;
     char* output = nullptr; // initialize pointer
-    output = (char*)malloc(numOfLetters * sizeof(char) + 1); // allocate memory for 26 letters + terminate character
+    output = (char*)malloc((numOfLetters + 1) * sizeof(char)); // allocate memory for 26 letters + terminate character
     if (output == nullptr) {throw PassGen::exceptions::memoryAllocationFailiure(); return nullptr;} // check if memory allocation is failed
     const int offset = 65; // 65th letter in ASCII (A)
     // adds 26 letters (A-Z)
@@ -32,7 +32,7 @@ auto PassGen::getUpperAlpha() -> char* {
 auto PassGen::getNumber() -> char* {
     const int numOfLetters = 10;
     char* output = nullptr; // initialize pointer
-    output = (char*)malloc((numOfLetters) * sizeof(char) + 1);
+    output = (char*)malloc((numOfLetters + 1) * sizeof(char));
     if (output == nullptr) {throw PassGen::exceptions::memoryAllocationFailiure(); return nullptr;} // check if memory allocation is failed
     const int offset = 48; // 48th letter in ASCII (0)
     // adds 10 letters (0-9)
@@ -47,7 +47,7 @@ auto PassGen::getNumber() -> char* {
 auto PassGen::getSpecialChars() -> char* {
     const int numOfLetters = 31; // 31 symbols
     char* output = nullptr; // initialize pointer
-    output = (char*)malloc((numOfLetters) * sizeof(char) + 1);
+    output = (char*)malloc((numOfLetters + 1) * sizeof(char));
     if (output == nullptr) {throw PassGen::exceptions::memoryAllocationFailiure(); return nullptr;} // check if memory allocation is failed
 
     int ind = 0; // index in the output list
@@ -93,7 +93,6 @@ auto PassGen::passGen(const char *charList, const unsigned int& len) -> char* {
     // return null pointer on the failiure of memory allocation
     if (output == nullptr) {throw PassGen::exceptions::memoryAllocationFailiure(); return nullptr;}
 
-    while (strSize(output) != len) { // to make sure output is in desired length
     for (int i = 0; i <= len; i++) {
         if (i == len) {output[i] = termChar;} // ends with terminating char
         else { // adds other chars otherwise
@@ -127,6 +126,7 @@ auto PassGen::passGen(const char *charList, const unsigned int& len) -> char* {
             // re-set current letter
             currentLetter = output[i];
         }}
-    }}
+    }
+
     return output;
 }
