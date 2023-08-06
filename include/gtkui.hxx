@@ -1,7 +1,12 @@
 #ifndef GTKUI_HXX
 #define GTKUI_HXX
+#include <config.h>
 
+#if IS_USING_GTK == 1
 #include <gtkmm.h> // GTK GUI Library (C++ wrapper)
+#endif
+
+#if IS_USING_GTK == 1
 #include <passgen.hxx>
 
 class PassGenUI : public Gtk::Window
@@ -57,5 +62,8 @@ class PassGenUI : public Gtk::Window
         // text buffer for m_output
         Glib::RefPtr<Gtk::TextBuffer> m_output_buffer = Gtk::TextBuffer::create();
 };
+# else
+
+#endif // IS_USING_GTK
 
 #endif // GTKUI_HXX

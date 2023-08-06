@@ -13,29 +13,27 @@ enum PROGRAMSTATE : int {
 // include utilities, passgen functions, and GUI app
 #include <utils.hxx>
 #include <passgen.hxx>
-#include <gtkui.hxx>
+#include <main.hxx>
+#include <config.h>
 
 /**
 * @brief runs the CUI version of program
 * @param len length of the password (int)
-* @param upper boolean flag for upper case alphabets
-* @param lower boolean flag for lower case alphabets
-* @param num boolean flag for numbers
-* @param special boolean flag for special characters
+* @param flg structure with flags, defined in main.hxx
 * @return (int) - execution state of program
 */
-inline auto runcui(const unsigned int& len, const bool& upper, const bool& lower, const bool& num, const bool& special) -> int {
+inline auto runcui(const unsigned int& len, const flags flg) -> int {
     // appends letters to input
     std::string input;
     try {
-        if (upper) {input += PassGen::getUpperAlpha();}
-        if (lower) {input += PassGen::getLowerAlpha();}
-        if (num) {input += PassGen::getNumber();}
-        if (special) {input += PassGen::getSpecialChars();}
+        if (flg.upAlphaFlag) {input += PassGen::getUpperAlpha();}
+        if (flg.lowAlphaFlag) {input += PassGen::getLowerAlpha();}
+        if (flg.numFlag) {input += PassGen::getNumber();}
+        if (flg.specialCharFlag) {input += PassGen::getSpecialChars();}
     }
     // print out error when any of getChars threw exception
     catch (PassGen::exceptions::memoryAllocationFailiure &err) {
-        printLine(err.what());
+        printErr(err.what());
         return FAIL;
     }
 
@@ -50,16 +48,16 @@ inline auto runcui(const unsigned int& len, const bool& upper, const bool& lower
     }
     // print out error when PassGen::passGen threw exception
     catch (PassGen::exceptions::memoryAllocationFailiure &err) {
-        printLine(err.what());
+        printErr(err.what());
         return FAIL;
     }
     catch (PassGen::exceptions::noCharList &err) {
-        printLine(err.what());
+        printErr(err.what());
         return FAIL;
     }
     catch (...) {
         PassGen::exceptions::exception error = PassGen::exceptions::unknownError();
-        printLine(error.what());
+        printErr(error.what());
         return FAIL;
     }
 
@@ -72,10 +70,13 @@ inline auto runcui(const unsigned int& len, const bool& upper, const bool& lower
 * @brief runs the GUI version of program
 * @return (int) - execution state of program
 */
+#if IS_USING_GTK == 1
+#include <gtkui.hxx>
 inline auto rungui() -> int {
     // run the GTK application
     auto app = Gtk::Application::create("apcsp.passgen"); // create instance of application
     return app->make_window_and_run<PassGenUI>(0,nullptr); // run GTK app with no arguments
 }
+#endif // IS_USING_GTK == 1
 
 #endif // UI_HXX

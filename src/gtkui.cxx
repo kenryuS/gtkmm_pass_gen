@@ -2,6 +2,7 @@
 #include "utils.hxx"
 #include <gtkui.hxx>
 
+#if IS_USING_GTK == 1
 PassGenUI::PassGenUI():
     // initialize widgets
     m_generate_button("Generate"),
@@ -108,3 +109,4 @@ auto PassGenUI::on_generate_button_clicked() -> void {
     m_output_buffer->set_text(output);
     m_output.set_buffer(m_output_buffer);
 }
+#endif // IS_USING_GTK == 1
