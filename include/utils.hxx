@@ -46,7 +46,7 @@ inline auto printErr(T object) -> void {
  **/
 inline auto printBuildOpt() -> void {
     printLine("Build Options Specified in CMake build:");
-    std::cout << "USE_GTK: " << (bool)IS_USING_GTK << std::endl;
+    std::cout << "USE_GTK: " << USE_GTK << std::endl;
 }
 
 /**

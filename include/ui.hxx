@@ -70,13 +70,13 @@ inline auto runcui(const unsigned int& len, const flags flg) -> int {
 * @brief runs the GUI version of program
 * @return (int) - execution state of program
 */
-#if IS_USING_GTK == 1
+#if USE_GTK == 1
 #include <gtkui.hxx>
 inline auto rungui() -> int {
     // run the GTK application
     auto app = Gtk::Application::create("apcsp.passgen"); // create instance of application
     return app->make_window_and_run<PassGenUI>(0,nullptr); // run GTK app with no arguments
 }
-#endif // IS_USING_GTK == 1
+#endif // USE_GTK == 1
 
 #endif // UI_HXX

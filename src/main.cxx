@@ -71,12 +71,12 @@ auto main(int argc, char** argv) -> int{
 
     // run GUI version if -g option is present
     if (flgs.guiFlag) {
-        #if IS_USING_GTK == 1
+        #if USE_GTK == 1
             state = rungui();
-        #else // IS_USING_GTK != 1
+        #else
             printErr("GTK is disabled in this build. Please rebuild package with USE_GTK flag in cmake");
             state = FAIL;
-        #endif // IS_USING_GTK == 1
+        #endif
     } else if (length > 0 && flagEnabled){
         // otherwise run CUI version
         state = runcui(length, flgs);

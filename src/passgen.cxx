@@ -80,7 +80,9 @@ auto PassGen::getSpecialChars() -> char* {
 auto PassGen::passGen(const char *charList, const unsigned int& len) -> char* {
     if (strSize(charList) == 0) {throw PassGen::exceptions::noCharList(); return nullptr;}
 
-    std::srand(time(nullptr)); // set random seed to current time
+    struct std::timespec ts;
+    std::timespec_get(&ts, TIME_UTC);
+    std::srand(ts.tv_nsec); // set random seed to current time
 
     unsigned int randomCharPos = 0; // position of charList which will be randomly selected
     const char termChar = '\0';

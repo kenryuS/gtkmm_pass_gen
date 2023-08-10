@@ -2,11 +2,11 @@
 #define GTKUI_HXX
 #include <config.h>
 
-#if IS_USING_GTK == 1
+#if USE_GTK == 1
 #include <gtkmm.h> // GTK GUI Library (C++ wrapper)
 #endif
 
-#if IS_USING_GTK == 1
+#if USE_GTK == 1
 #include <passgen.hxx>
 
 class PassGenUI : public Gtk::Window
@@ -64,6 +64,6 @@ class PassGenUI : public Gtk::Window
 };
 # else
 
-#endif // IS_USING_GTK
+#endif // USE_GTK
 
 #endif // GTKUI_HXX

@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
-project(APCSPCreateTask VERSION 0.1 LANGUAGES CXX)
+project(PassGen VERSION 0.1 LANGUAGES CXX)
 
 set(SOURCE_DIR ./src)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(PkgConfig)
 
