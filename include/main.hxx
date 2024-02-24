@@ -7,6 +7,7 @@ typedef struct {
     bool numFlag;
     bool specialCharFlag;
     bool guiFlag;
+    bool tuiFlag;
 } flags;
 
 #endif // MAIN_HXX

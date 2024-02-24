@@ -2,5 +2,6 @@
 #define CONFIG_H_IN
 
 #define USE_GTK @USE_GTK@
+#define USE_NCURSES @USE_NCURSES@
 
 #endif // CONFIG_H_IN

@@ -7,14 +7,13 @@ enum PROGRAMSTATE : int {
     FAIL // 1
 };
 
-// include libraries for string operations
-#include <string>
-#include <cstring>
-// include utilities, passgen functions, and GUI app
-#include <utils.hxx>
-#include <passgen.hxx>
-#include <main.hxx>
+// include libraries for string operations, utilities, passgen functions, and GUI app
 #include <config.h>
+#include <cstring>
+#include <main.hxx>
+#include <passgen.hxx>
+#include <string>
+#include <utils.hxx>
 
 /**
 * @brief runs the CUI version of program
@@ -78,5 +77,16 @@ inline auto rungui() -> int {
     return app->make_window_and_run<PassGenUI>(0,nullptr); // run GTK app with no arguments
 }
 #endif // USE_GTK == 1
+
+/**
+* @brief runs the TUI version of program
+* @return (int) - execution state of program
+* **/
+#if USE_NCURSES == 1
+#include <ncursesui.hxx>
+inline auto runtui() -> int {
+    return NcursesUI::ncursesMain();
+}
+#endif // USE_NCURSES == 1
 
 #endif // UI_HXX

@@ -1,6 +1,6 @@
-#include "passgen.hxx"
-#include "utils.hxx"
 #include <gtkui.hxx>
+#include <passgen.hxx>
+#include <utils.hxx>
 
 #if USE_GTK == 1
 PassGenUI::PassGenUI():
@@ -16,7 +16,7 @@ PassGenUI::PassGenUI():
     m_title("Password Generator")
 {
     // set window props
-    set_title("AP CSP Create Task - Password Generator");
+    set_title((const Glib::ustring)m_title.get_text());
     set_default_size(winWidth,winHeight);
     // link the button event to the function
     m_generate_button.signal_clicked().connect(sigc::mem_fun(*this, &PassGenUI::on_generate_button_clicked));

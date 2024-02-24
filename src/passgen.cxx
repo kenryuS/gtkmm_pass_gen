@@ -1,5 +1,5 @@
-#include <utils.hxx>
 #include <passgen.hxx>
+#include <utils.hxx>
 
 auto PassGen::getLowerAlpha() -> char* {
     const int numOfLetters = 26;
